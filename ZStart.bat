@@ -66,4 +66,4 @@ echo Loading startup parameters...
 %CMD%
 if '%EXIT_MODE%' == 'WAIT' TIMEOUT /T %WAIT_TIME%
 if '%EXIT_MODE%' == 'PAUSE' PAUSE
-exit
+exit 
