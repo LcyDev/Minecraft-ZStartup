@@ -3,6 +3,7 @@
 My custom startup batch for minecraft servers.
 
 
-To enable restart.bat
-Edit spigot.yml - "restart-script: restart.bat"
+To enable restart.bat or the new restart merged with ZStart
+Edit spigot.yml : "restart-script: (file).bat" 
+ZStart also has "restart-script: ZStart.bat -restart" to give a restart message.
 
