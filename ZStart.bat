@@ -24,7 +24,29 @@ SET EXIT_MODE=WAIT
 :: WAIT_TIME: How many seconds to wait before the console closes.
 SET WAIT_TIME=20
 
+::###########################
+::  AUTO_START CONFIGURATION
+::###########################
+:: !WARNING!, BEFORE CHANGING THE SERVICE NAME, SET STARTS ON "NONE", RUN IT TO DELETE THE PREVIOUS TASK 
+:: AND BEFORE THE SERVER STARTS, CLOSE WINDOW AND NOW CHANGE NAME.
+::
 
+:: ServiceName: Name of the service/task, no spaces.
+SET ServiceName=mcserverbatch01
+::::
+:: Start_TASK: Sets the mode of the task.
+::  DAILY=EVERYDAY, ONSTART=WINDOWS STARTS, ONLOGON=USER LOGINS, NONE=NO TASK_AUTOSTART
+:: 			   (DAILY, ONSTART, ONLOGON, NONE)
+SET Start_TASK=NONE
+:: TaskTime: Sets to start the server at certain time.
+::			 (NEEDS DAILY) (hh:ss)
+SET TaskTime=13:05
+::::
+:: Start_SERVICE:
+::  AUTO=WINDOWS STARTS, DELAYED=USER LOGINS, NONE= NO SERVICE_AUTOSTART
+::        (AUTO, DELAYED-AUTO, DISABLED, NONE)
+SET Start_SERVICE=NONE
+::###########################
 
 :: JAR_NAME: The name of your server's JAR file. The default is
 ::           "paperclip.jar".
@@ -67,7 +89,15 @@ SET DEFAULTS=-XX:+DisableExplicitGC
 SET POSTJAR=-nogui
 :::: END CONFIGURATION -- DON'T TOUCH ANYTHING BELOW THIS LINE!
 ::SCRIPT Setup
+::
+::TASKS&SERVICES
+if %Start_TASK%'=='NONE' SCHTASKS /DELETE /TN %ServiceName%
+if %Start_SERVICE%'=='NONE' sc delete %ServiceName%
+if NOT '%Start_TASK%'=='NONE' if '%Start_SERVICE%'=='NONE' SCHTASKS /CREATE /TN %ServiceName% /SC %Start_TASK% /ST %TaskTime% /TR %0 
+if NOT '%Start_SERVICE%'=='NONE' if '%Start_TASK%'=='NONE' sc create '%ServiceName%' start=%Start_SERVICE% binpath=%0
+::RESTART_SCRIPT
 if '%1'=='-restart' GOTO restart
+::FLAGS_SETUP
 set MODE=%HEAP_UNIT:~0,1%
 set agree=-Dcom.mojang.eula.agree=false
 set advanced=-DIReallyKnowWhatIAmDoingISwear=false
@@ -76,7 +106,7 @@ if '%ADVANCEDSTART%'=='TRUE' set advanced=-DIReallyKnowWhatIAmDoingISwear=true
 setlocal ENABLEDELAYEDEXPANSION
 set "JVM_FLAGS=!FLAGS_%JVM_MODE%! %DEFAULTS% %agree% %advanced%"
 setlocal DISABLEDELAYEDEXPANSION
-
+:: NURSERY
 if '%NURSERY%'=='TRUE' (
 	set /A NURSE_MAX=%HEAP_MAX% * 2 / 5
 	set /A NURSE_MIN=%HEAP_MAX% / 4
@@ -93,6 +123,7 @@ echo Loading startup parameters...
 echo.
 %CMD%
 goto PAUSE
+
 :PAUSE
 echo.
 if '%EXIT_MODE%'=='WAIT' TIMEOUT /T %WAIT_TIME%
