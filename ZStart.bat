@@ -12,7 +12,7 @@ title ZStart
 
 ::--CONSOLE--::
 ::# Sets the console title.
-SET TITLE="UT:Re-Birth: Build+"
+SET TITLE="Minecraft: Server Instance"
 ::# Sets the server location.
 SET SERVER_PATH="./"
 ::# Loop the server, no matter how the server closes, it will restart.
@@ -25,16 +25,18 @@ SET AUTO-EULA=true
 ::# Values: WAIT, PAUSE, NONE
 SET WAIT-MODE=WAIT
 ::# Sets how long to WAIT.
-SET WAIT-TIMER=30 
+SET WAIT-TIMER=30  
 ::# Enables exiting after wait-mode.
 SET EXIT=true
+::# Enables debug-messages.
+SET DEBUG=false
 
 
 ::--SERVER--::
 ::# The name of your server's JAR file.
 ::# Side note: if you're not using Paper (http://papermc.io) or one of it's forks,
 ::# (https://purpur.pl3x.net) then you should really switch. 
-SET JAR_NAME="purpur-1.16.5-1171.jar"
+SET JAR_NAME="server.jar"
 ::# The location of your server's JAR.
 SET JAR_PATH="./"
 ::# Sets the CPU priority for the java program (Server).
@@ -43,7 +45,7 @@ SET PRIORITY=REALTIME
 ::# Skips the need of eula.txt = true.
 SET EULA-SKIP=false
 ::# Removes warnings about outdated server builds.
-SET ADVANCED-MODE=true
+SET ADVANCED-MODE=false
 ::# Your server's JAR parameters.
 ::# In order to see all the parameters, set below --help.
 ::# (This won't let the server start, but will show all parameters available)
@@ -59,7 +61,7 @@ SET PARAMETERS="--nogui"
 ::# You can use this to determine which java you want to use.
 ::# Consider using java 11 or latest if possible, and changing to OpenJDK.
 ::# (Change to OpenJDK here! https://adoptopenjdk.net/)
-SET JAVA_BINARY="C:\Program Files\AdoptOpenJDK\jdk-16.0.1.9-hotspot\bin\java.exe"
+SET JAVA_BINARY="java"
 ::# Allocate the server's max&min heap-memory.
 ::# If you want to allocate more than 4GB you will need Java 64 bits.
 SET MAX-MEMORY=4096
@@ -180,6 +182,11 @@ echo Loading startup parameters...
 echo.
 start /I /B /W "%TITLE%" /%PRIORITY% %CMD%
 echo.
+if /I '%DEBUG%'=='true' (
+	echo start /I /B /W "%TITLE%" /%PRIORITY% CMD
+	echo CMD: %CMD%
+	echo EX: "java" -Xms4096M -Xms1024M -jar "./server.jar" --nogui
+)
 echo.
 goto stop
 
