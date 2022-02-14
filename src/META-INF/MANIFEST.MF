@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: dev.conah.ZStartup
+Main-Class: main.conah.ZStartup
 

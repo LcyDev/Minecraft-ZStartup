@@ -1,4 +1,4 @@
-package dev.conah;
+package main.conah;
 
 public class Server {
 }
