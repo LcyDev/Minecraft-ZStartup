@@ -1,0 +1,118 @@
+general-config:
+  console:
+    # Sets the console title.
+    title: "Minecraft Server Instance"
+    # Sets the server location.
+    server-path: "./"
+    # Loop the server, no matter how the server closes, it will restart.
+    # Exit ZStart to stop this loop.
+    # (Consider rather configuring spigot.yml restart-script.)
+    restart-loop: true
+    # Start the server as the zstart is opened.
+    auto-start: false
+    # Automatically creates and accepts eula.txt.
+    auto-eula: true
+    # What will happen when the server is stopped.
+    # Values: WAIT, PAUSE, NONE
+    wait-mode: WAIT
+    # Sets how long to WAIT.
+    wait-timer: 30
+    # Enables exiting after wait-mode.
+    exit-on-stop: true
+  server:
+    # The name of your server's JAR file.
+    # Side note: if you're not using Paper (http://papermc.io) or one of it's forks,
+    # (https://purpur.pl3x.net) then you should really switch.
+    jar-name: "purpur-1.16.5-1171.jar"
+    # The location of your server's JAR.
+    jar-path: "./server/"
+    # Skips the need of eula.txt = true.
+    eula-skip: true
+    # Removes warnings about outdated server builds.
+    advanced-mode: true
+    # Your server's JAR parameters.
+    # In order to see all the parameters, set below --help.
+    # (This won't let the server start, but will show all parameters available)
+    # More info:
+    #   https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server
+    #   https://bukkit.gamepedia.com/CraftBukkit_Command_Line_Arguments
+    #   https://www.spigotmc.org/wiki/start-up-parameters
+    # parameters: "-nogui -version"
+    parameters:
+      - "-nogui"
+    # - "-nogui --version"
+  java:
+    # Sets the path of the java binary. (bin\java.exe)
+    # You can use this to determine which java you want to use.
+    # Consider using java 11 or latest if possible, and changing to OpenJDK.
+    # (Change to OpenJDK here! https://adoptopenjdk.net/)
+    # "C:\\Program Files\\Oracle\\Java 16\\bin\\java.exe"
+    java-binary: "C:\\Program Files\\AdoptOpenJDK\\jdk-16.0.1.9-hotspot\\bin\\java.exe"
+    # Allocate the server's max&min heap-memory.
+    # If you want to allocate more than 4GB you will need Java 64 bits.
+    max-memory: 4096
+    min-memory: 1024
+    # Select the memory unit to be used.
+    # Values: KB, MB, GB.
+    heap-unit: MB
+    # This attempts to self-calculate the nursery max&min memory based on max-heap-memory.
+    # Java already sets this itself. OpenJ9 is needed.
+    calc-nursery: false
+    # DEFAULTS: Always enabled, independently of other group flags.
+    # G1GC: Aikar's G1GC flags. (https://mcflags.emc.gs)
+    # ZGC: Aikar based ZGC flags. (Exists from J11, decent from J14, Latest is always better.)
+    # Instructions:
+    # Be sure to remove any flag that is already on DEFAULTS
+    # You can modify this as you please, remove or add new group flags.
+    # To toggle a group flag, just set true/false.
+    # To add multiple flags in one line, add "- flags: (-flags)"
+    # Else, add one flag per line with "- (flag)"
+    flags:
+      # More info:
+      # Timezone flag: -Duser.timezone="America/New_York" (https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/)
+      #   https://www.oracle.com/technical-resources/articles/java/g1gc.html
+      #   https://forums.spongepowered.org/t/optimized-startup-flags-for-consistent-garbage-collection/13239
+      #   https://wiki.openjdk.java.net/display/zgc/Main
+      # DEFAULTS: "-XX:1 -XX:2"
+      DEFAULTS:
+        # - "-XX:1 -XX:2"
+        -XX:+DisableExplicitGC
+      G1GC:
+        enable: false
+        #list: "-XX:1 -XX:2 -XX:3"
+        list:
+          # - "-XX:1 -XX:2"
+          -XX:+UseG1GC
+          -XX:+UnlockExperimentalVMOptions
+          -XX:+ParallelRefProcEnabled
+          -XX:+AlwaysPreTouch
+          -XX:+PerfDisableSharedMem
+          -XX:InitiatingHeapOccupancyPercent=15
+          -XX:SurvivorRatio=32
+          -XX:MaxTenuringThreshold=1
+          -XX:MaxGCPauseMillis=200
+          -XX:G1NewSizePercent=30
+          -XX:G1MaxNewSizePercent=40
+          -XX:G1HeapRegionSize=8M
+          -XX:G1ReservePercent=20
+          -XX:G1HeapWastePercent=5
+          -XX:G1MixedGCCountTarget=4
+          -XX:G1MixedGCLiveThresholdPercent=90
+          -XX:G1RSetUpdatingPauseTimePercent=5
+          -Dusing.aikars.flags=https://mcflags.emc.gs
+          -Daikars.new.flags=true
+      ZGC:
+        enable: false
+        list:
+          -XX:+UseZGC
+          -XX:+UnlockExperimentalVMOptions
+          -XX:+ParallelRefProcEnabled
+          -XX:+AlwaysPreTouch
+          -XX:+PerfDisableSharedMem
+          -XX:InitiatingHeapOccupancyPercent=15
+          -XX:SurvivorRatio=32
+          -XX:MaxTenuringThreshold=1
+          -XX:-UseG1GC
+          -XX:-UseParallelGC
+          -Dusing.aikars.flags=https://mcflags.emc.gs
+          -Daikars.new.flags=true

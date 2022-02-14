@@ -1,0 +1,3 @@
+"C:\Program Files\AdoptOpenJDK\jdk-16.0.1.9-hotspot\bin\java.exe" "-javaagent:D:\ProgramFilesX\JetBrains\IntelliJ IDEA Community Edition\lib\idea_rt.jar=56009:D:\ProgramFilesX\JetBrains\IntelliJ IDEA Community Edition\bin" -Dfile.encoding=UTF-8 -classpath C:\Users\conah\IdeaProjects\ZStartup5\out\production\ZStartup5;C:\Users\conah\.m2\repository\org\yaml\snakeyaml\1.29\snakeyaml-1.29.jar;C:\Users\conah\.m2\repository\org\jetbrains\annotations\20.1.0\annotations-20.1.0.jar;C:\Users\conah\.m2\repository\org\apache\commons\commons-lang3\3.3.2\commons-lang3-3.3.2.jar Main
+pause
+cmd /c program.bat
