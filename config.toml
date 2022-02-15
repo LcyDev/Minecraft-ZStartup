@@ -1,0 +1,71 @@
+[console]
+    title = "Minecraft Server" # nombre de la consola
+    server-path = "./" # carpeta del server
+    restart-loop = true
+    auto-start = false
+    auto-eula = true
+    wait-mode = "WAIT"
+    wait-timer = 30
+    exit-on-stop = true
+[server]
+    jar-name = "server.jar"
+    jar-path = "./"
+    eula-skip = false
+    before_jar = ""
+    parameters = "-nogui"
+[java]
+    java-binary = "java"
+    heap-unit = "MB"
+    max-memory = 4096
+    min-memory = 4096
+    memory-percent = 100
+    [flags]
+        defaults = """-XX:+DisableExplicitGC"""
+        enabled = "test, test2"
+        [test]
+            flags = """
+            -XX:+UseG1GC
+            -XX:+UnlockExperimentalVMOptions
+            """
+        [test2]
+            flags = """
+            -XX:+ParallelRefProcEnabled
+            -XX:+AlwaysPreTouch
+            """
+        [g1gc2]
+            flags = """
+            -XX:+UseG1GC
+            -XX:+UnlockExperimentalVMOptions
+            -XX:+ParallelRefProcEnabled
+            -XX:+AlwaysPreTouch
+            -XX:+PerfDisableSharedMem
+            -XX:InitiatingHeapOccupancyPercent=15
+            -XX:SurvivorRatio=32
+            -XX:MaxTenuringThreshold=1
+            -XX:MaxGCPauseMillis=200
+            -XX:G1NewSizePercent=30
+            -XX:G1MaxNewSizePercent=40
+            -XX:G1HeapRegionSize=8M
+            -XX:G1ReservePercent=20
+            -XX:G1HeapWastePercent=5
+            -XX:G1MixedGCCountTarget=4
+            -XX:G1MixedGCLiveThresholdPercent=90
+            -XX:G1RSetUpdatingPauseTimePercent=5
+            -Dusing.aikars.flags=https://mcflags.emc.gs
+            -Daikars.new.flags=true
+            """
+        [zgc]
+            flags = """
+            -XX:+UseZGC
+            -XX:+UnlockExperimentalVMOptions
+            -XX:+ParallelRefProcEnabled
+            -XX:+AlwaysPreTouch
+            -XX:+PerfDisableSharedMem
+            -XX:InitiatingHeapOccupancyPercent=15
+            -XX:SurvivorRatio=32
+            -XX:MaxTenuringThreshold=1
+            -XX:-UseG1GC
+            -XX:-UseParallelGC
+            -Dusing.aikars.flags=https://mcflags.emc.gs
+            -Daikars.new.flags=true
+            """
