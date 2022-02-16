@@ -24,10 +24,11 @@ def init():
                     javaflags = f"{javaflags} {flag}"
             xms = int(java["max-memory"] * java["memory-percent"] / 100)
             xmx = int(java["max-memory"] * java["memory-percent"] / 100)
-            CMD_JAVA = f"{java['java-binary']} -Xms{xms}{java['heap-unit'][0]} -Xmx{xmx}{java['heap-unit'][0]}"
-            CMD_JAR = f"-jar \"{server['jar-path']+server['jar-name']}\" {}{alt_funcs.join(server['parameters'])}"
+            CMD_JAVA = '"' + java['java-binary'].replace('//', '/') + '" ' + f"-Xms{xms}{java['heap-unit'][0]} -Xmx{xmx}{java['heap-unit'][0]}"
+            CMD_JAR = f"-jar \"{server['jar-path']+server['jar-name']}\" {alt_funcs.join(server['parameters'])}"
             print(CMD_JAVA)
-            print(javaflags)
-            print(CMD_JAR)
-            run = CMD_JAVA + javaflags + CMD_JAR
-            
+            #print(javaflags)
+            #print(CMD_JAR)
+            run = CMD_JAVA + " " + javaflags + " " + CMD_JAR
+            print(run)
+            os.system(run)

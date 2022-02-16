@@ -8,13 +8,13 @@
     wait-timer = 30
     exit-on-stop = true
 [server]
-    jar-name = "server.jar"
+    jar-name = "purpur-1.16.5-1171.jar"
     jar-path = "./"
     eula-skip = false
     before_jar = ""
     parameters = "-nogui"
 [java]
-    java-binary = "java"
+    java-binary = "C://Program Files//Eclipse Foundation//jdk-16.0.2.7-hotspot//bin//java.exe" # Set java to default java version
     heap-unit = "MB"
     max-memory = 4096
     min-memory = 4096

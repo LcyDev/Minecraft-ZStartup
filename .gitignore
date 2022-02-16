@@ -289,3 +289,6 @@ fabric.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij
 .vscode/settings.json
+purpur-1.16.5-1171.jar
+cache/patched_1.16.5.jar
+cache/mojang_1.16.5.jar
