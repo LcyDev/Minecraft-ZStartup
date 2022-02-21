@@ -7,4 +7,7 @@ def listToString(list_, sep=" "):
     return str_
 
 def join(list_, sep=" "):
-    return sep.join(list_.split())
+    return sep.join(list_)
+
+def join2(list_, sep=" "):
+    return sep.join(list_.split()) # ???

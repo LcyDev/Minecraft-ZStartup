@@ -2,8 +2,9 @@ import os, sys, ctypes, traceback #system
 import sty # colors
 from sty import * 
 from msvcrt import getch # to Press any key to continue
-
+import ZStart
 from utils import _vars, funcs, alt_funcs # Local imports
+
 
 def setup():
     if os.name == 'nt':
@@ -21,8 +22,11 @@ def setup():
 
 def main():
     try:
+        os.system("cls")
         print()
         _vars.init()
+        #input(">> ")
+        ZStart.startSRV()
         #funcs.accept_eula()
         pass
     except Exception:

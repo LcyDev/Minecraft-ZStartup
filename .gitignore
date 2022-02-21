@@ -4,6 +4,7 @@
 ### Custom ###
 src/main/exclude/*
 builds/product/*
+server/*
 # End of custom by https://github.com/ConaII
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
