@@ -53,8 +53,8 @@ SET ADVANCED-MODE=false
 ::#   https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server
 ::#   https://bukkit.gamepedia.com/CraftBukkit_Command_Line_Arguments
 ::#   https://www.spigotmc.org/wiki/start-up-parameters
-SET PARAMETERS="--nogui"
-SET BEFOREJAR="-Dfile.encoding=UTF-8"
+SET PARAMETERS=--nogui
+SET BEFOREJAR=-Dfile.encoding=UTF-8
 
 ::--JAVA--::
 ::# Sets the path of the java binary. (bin\java.exe)
@@ -86,7 +86,7 @@ SET MULTI_FLAGS=false
 ::SET FLAGS_MODE2=
 ::SET FLAGS_MODE3=
 
-SET DEFAULTS=""
+SET DEFAULTS=
 ::# Instructions:
 ::#   Be sure to remove any flag that is already on DEFAULTS
 ::#   You can modify this as you please, remove or add new group flags.
