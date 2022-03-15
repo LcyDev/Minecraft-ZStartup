@@ -1,3 +1,4 @@
+from concurrent.futures import process
 import os, sys, ctypes, subprocess
 from sty import *
 from datetime import datetime as dt
@@ -41,5 +42,14 @@ def startSRV():
     print(f"{fg.da_grey}[{fg(218,116,32)}INFO{fg.da_grey}] {fg(216,190,80)}{now}")
     print(f"{fg.da_grey}[{fg.cyan}ZStart{fg.da_grey}] {fg.grey}Starting Server...")
     print(rs.all)
-    #subprocess.call(_vars.RUN_CMD)
+    try:
+        subprocess.call(_vars.RUN_CMD)
+        #serverProcess = subprocess.call(_vars.RUN_CMD, shell=True, stdout=subprocess.PIPE)
+        #for line in serverProcess.stdout:
+        #    sys.stdout.buffer.write(line)
+        #    sys.stdout.buffer.flush()
+        #serverProcess.stdout.close()
+    except Exception as e:
+        print(e)
+        pass
     print()

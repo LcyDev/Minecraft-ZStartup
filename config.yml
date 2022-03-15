@@ -3,10 +3,9 @@
 ############################
 zStart:
     config-version: 1.0
-    first-start: false
+    setup-mode: true
     debug-msg: true
     debug-mode: false 
-    debug-start: false
 
 #::--CONSOLE--::#
 console:
@@ -15,7 +14,7 @@ console:
     color-mode: HEX
     console-color: "#0C0C0C"
     # Sets the server location.
-    server-path: "./"
+    server-path: "./Server"
     # Loop the server, no matter how the server closes, it will restart.
     # Exit ZStart to stop this loop.
     # (Consider rather configuring spigot.yml's restart-script)
