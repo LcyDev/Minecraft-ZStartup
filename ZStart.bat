@@ -29,8 +29,8 @@ SET WAIT-TIMER=30
 ::# Enables exiting after wait-mode.
 SET EXIT=true
 ::# Enables debug-messages.
-SET DEBUG=false
-
+SET DEBUG=true
+SET DEBUGON=both
 
 ::--SERVER--::
 ::# The name of your server's JAR file.
@@ -54,7 +54,7 @@ SET ADVANCED-MODE=false
 ::#   https://bukkit.gamepedia.com/CraftBukkit_Command_Line_Arguments
 ::#   https://www.spigotmc.org/wiki/start-up-parameters
 SET PARAMETERS="--nogui"
-
+SET BEFOREJAR="-Dfile.encoding=UTF-8"
 
 ::--JAVA--::
 ::# Sets the path of the java binary. (bin\java.exe)
@@ -86,7 +86,7 @@ SET MULTI_FLAGS=false
 ::SET FLAGS_MODE2=
 ::SET FLAGS_MODE3=
 
-SET DEFAULTS="-XX:+DisableExplicitGC"
+SET DEFAULTS=""
 ::# Instructions:
 ::#   Be sure to remove any flag that is already on DEFAULTS
 ::#   You can modify this as you please, remove or add new group flags.
@@ -96,8 +96,8 @@ SET DEFAULTS="-XX:+DisableExplicitGC"
 ::#    G1GC: -XX:G1NewSizePercent=40 -XX:G1MaxNewSizePercent=50 -XX:G1HeapRegionSize=16M -XX:G1ReservePercent=15
 ::#    OTHER: -XX:InitiatingHeapOccupancyPercent=20
 ::#    (If this generates problems, revert back)
-SET F_G1GC=-XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:MaxGCPauseMillis=200 -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true
-SET F_ZGC=-XX:+UseZGC -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:+PerfDisableSharedMem -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:MaxTenuringThreshold=1 -XX:-UseG1GC -XX:-UseParallelGC -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true
+SET F_G1GC=-XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4 -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true
+SET F_ZGC=-XX:+UseZGC -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -XX:InitiatingHeapOccupancyPercent=15 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1 -XX:-UseG1GC -XX:-UseParallelGC -XX:+IgnoreUnrecognizedVMOptions -XX:+UseDynamicNumberOfGCThreads -XX:+PerfDisableSharedMem -Dusing.aikars.flags=https://mcflags.emc.gs -Daikars.new.flags=true -Dlog4j2.formatMsgNoLookups=true -Dlog4j.configurationFile=purpur_log4j2_117.xml
 :: 
 ::# More info:
 ::   # Timezone flag: -Duser.timezone="America/New_York" (https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/)
@@ -172,24 +172,33 @@ setlocal DISABLEDELAYEDEXPANSION
 if '%NURSERY%'=='TRUE' (
 	set /A NURSE_MAX=%MAX-MEMORY% * 2 / 5
 	set /A NURSE_MIN=%MAX-MEMORY% / 4
-	set CMD=%JAVA_BINARY% -Xmx%MAX-MEMORY%%MODE% -Xms%MIN-MEMORY%%MODE% -Xmns%NURSE_MIN%%MODE% -Xmnx%NURSE_MAX%%MODE% %JVM_FLAGS% -jar "%JAR_PATH%%JAR_NAME%" %PARAMETERS%
-) else set CMD=%JAVA_BINARY% -Xmx%MAX-MEMORY%%MODE% -Xms%MIN-MEMORY%%MODE% %JVM_FLAGS% -jar "%JAR_PATH%%JAR_NAME%" %PARAMETERS%
+	set CMD=%JAVA_BINARY% -Xmx%MAX-MEMORY%%MODE% -Xms%MIN-MEMORY%%MODE% -Xmns%NURSE_MIN%%MODE% -Xmnx%NURSE_MAX%%MODE% %JVM_FLAGS% -jar %BEFOREJAR% "%JAR_PATH%%JAR_NAME%" %PARAMETERS%
+) else set CMD=%JAVA_BINARY% -Xmx%MAX-MEMORY%%MODE% -Xms%MIN-MEMORY%%MODE% %JVM_FLAGS% -jar %BEFOREJAR% "%JAR_PATH%%JAR_NAME%" %PARAMETERS%
 
 ::Start server
 echo.
 echo Starting Server 
 echo Loading startup parameters...
 echo.
+if /I '%DEBUG%'=='true' (
+	if '%DEBUGON%'=='stop' call :debug
+	if '%DEBUGON%'=='both' call :debug
+)
 start /I /B /W "%TITLE%" /%PRIORITY% %CMD%
 echo.
+
 if /I '%DEBUG%'=='true' (
-	echo start /I /B /W "%TITLE%" /%PRIORITY% CMD
-	echo CMD: %CMD%
-	echo EX: "java" -Xms4096M -Xms1024M -jar "./server.jar" --nogui
+	if '%DEBUGON%'=='stop' call :debug
+	if '%DEBUGON%'=='both' call :debug
 )
 echo.
 goto stop
 
+:debug
+	echo start /I /B /W "%TITLE%" /%PRIORITY% CMD
+	echo CMD: %CMD%
+	echo EX: "java" -Xms4096M -Xms1024M -jar "./server.jar" --nogui
+goto :eof
 :stop
 echo.
 if /I '%WAIT-MODE%'=='WAIT' TIMEOUT /T %WAIT-TIMER%
