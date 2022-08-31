@@ -1,34 +1,26 @@
-import os, sys, ctypes, traceback #system
-import sty # colors
-from sty import * 
-from msvcrt import getch # to Press any key to continue
+import os, sys, ctypes, traceback
+import sty
+from sty import *
 import ZStart
-from utils import _vars, funcs, alt_funcs # Local imports
+from utils import _vars, funcs, alt_funcs
 
+if os.name == 'nt':
+    from msvcrt import getch
+else:
+    import getch
 
 def setup():
-    if os.name == 'nt':
-        try:
-            kernel32 = ctypes.WinDLL('kernel32', use_last_error=True)
-            kernel32.SetConsoleTitleW(f"ZStartup5 - {_vars.__VERSION__}")
-        except (WindowsError, IOError, RuntimeError):
-            ctypes.WinError(ctypes.get_last_error())
-            os.system(f'title ZStartup5 - {_vars.__VERSION__}')
-        os.system('color') # Compatibility color fix for windows terminals
-    else:
-        sys.stdout.write(b'\33]0; ZStartup5 - ' + _vars.___VERSION__ + b'\a')
-        sys.stdout.flush()
-        os.system("") # Compatibility color fix for other terminals
+    funcs.title(f"ZStartup5 - {_vars.__VERSION__}")
 
 def main():
     try:
-        os.system("cls")
-        print()
+        funcs.clear()
+        print(f"{fg.da_grey}[{fg.cyan}ZStart{fg.da_grey}] {fg(233,50,106)}Loading ZStart5 version {_vars.__VERSION__}...\n")
         _vars.init()
-        #input(">> ")
-        ZStart.startSRV()
-        #funcs.accept_eula()
-        pass
+        
+        ZStart.setup()
+        funcs.accept_eula()
+        ZStart.initLoop()
     except Exception:
         print(f"{rs.all}\n‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾‾")
         print(f"{fg.li_red} [WARNING] Something awful happened!")

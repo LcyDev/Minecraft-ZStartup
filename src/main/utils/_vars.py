@@ -1,5 +1,3 @@
-# constantes
-__VERSION__ = "1.0-beta"
 import os
 import re
 import toml
@@ -7,7 +5,8 @@ import yaml
 from sty import *
 from . import alt_funcs
 
-
+__VERSION__ = "1.0-beta"
+__PATH__ = os.getcwd()
 
 def init():
     init_yaml()
@@ -24,10 +23,19 @@ def init_yaml():
             server = config['server']
             java = config['java']
             flags = java['flags']
-
+    global fg_df, bg_df, rs_df
+    if console["color-mode"].upper() == "HEX":
+        pass
+    if console["color-mode"].upper() == "RGB":
+        pass
+    if console["color-mode"].upper() == "COLOR":
+        pass
+    bg_df = console["console-color"]
+    fg_df = console["text-color"]
+    
 def setVars():
     global JAVA_PATH, JAVA_MEM, JAVA_FLAGS
-    global JAR_FLAG, JAR_PATH, JAR_ARGS
+    global JAR_FLAGS, JAR_PATH, JAR_ARGS
     global PRINT_JAVA, PRINT_FLAGS, PRINT_JAR, RUN_CMD
     xms = int(java["max-memory"] * java["memory-percent"] / 100)
     xmx = int(java["max-memory"] * java["memory-percent"] / 100)
@@ -62,10 +70,3 @@ def setVars():
     PRINT_JAVA = f'{fg(215,32,76)}"{JAVA_PATH}" {fg(238,62,120)}{JAVA_MEM[0]} {fg(230,26,100)}{JAVA_MEM[1]}'
     PRINT_FLAGS = f"{fg(100,190,160)}{alt_funcs.join(JAVA_FLAGS)}"
     PRINT_JAR =  f'{fg(130,184,178)}{alt_funcs.join(JAR_FLAGS)} {fg.grey}-jar {fg(42,112,232)}"{JAR_PATH}" {fg(114,180,210)}{alt_funcs.join(JAR_ARGS)}'
-
-def init_toml():
-    if not os.path.exists('config.toml'):
-        pass #generate file
-    else: 
-        with open('config.toml', 'r') as f:
-            config = toml.load(f)
