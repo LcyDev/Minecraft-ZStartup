@@ -3,7 +3,8 @@
 
 ### Custom ###
 src/main/exclude/*
-builds/*
+builds/product/*
+builds/dist/*
 test/*
 # End of custom by https://github.com/ConaII
 
