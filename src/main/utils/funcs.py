@@ -105,7 +105,10 @@ def title(text):
 
 def accept_eula():
     if _vars.console["auto-eula"]:
-        Rfile = open(r"eula.txt", 'r+')
+        if os.path.isdir('eula.txt'):
+            Rfile = open(r"eula.txt", 'r+')
+        else:
+            Rfile = open(r"eula.txt", 'w+')
         if any(line.strip() == "eula=true" for line in Rfile):
             print(f"{fg.da_grey}[{fg(218,116,32)}INFO{fg.da_grey}] {fg.li_red}eula.txt already true, skipping..")
         else:
@@ -118,7 +121,6 @@ def accept_eula():
             ]
             file.truncate(0)
             file.writelines(lines)
-
 
 # New input system, replaces input()
 def xinput(allowCMD=True, sep=">>>", color=fg(0, 148, 255), coloraf=rs.all):

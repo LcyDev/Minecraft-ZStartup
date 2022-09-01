@@ -14,7 +14,7 @@ def init():
 
 
 def init_yaml():
-    global config, console, server, java, flags
+    global config, console, server, java, flags, startscript, stopscript
     if not os.path.exists('config.yml'):
         pass #generate file
     with open('config.yml', 'r') as f:
@@ -32,6 +32,8 @@ def init_yaml():
         pass
     bg_df = console["console-color"]
     fg_df = console["text-color"]
+    startscript = console['start-script']
+    stopscript = console['stop-script']
     
 def setVars():
     global JAVA_PATH, JAVA_MEM, JAVA_FLAGS

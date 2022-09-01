@@ -33,6 +33,10 @@ console:
     wait-timer: 30
     # Enables auto-exiting after wait-mode in false, manually exit.
     exit-on-stop: false
+    # Script on the server start
+    start-script: "start python ../onServerStart.py"
+    # Scrip on the server stop
+    stop-script: "start python ../onServerStop.py"
 
 #::--SERVER--::#
 server:

@@ -19,7 +19,9 @@ def menuLoop():
 
 def initLoop(inLoop=True):
     while inLoop:
+        if len(_vars.startscript): os.system(_vars.startscript)
         startSRV()
+        if len(_vars.stopscript): os.system(_vars.stopscript)
         if _vars.console["wait-mode"].upper() == "WAIT":
             if isinstance(_vars.console["wait-timer"], int):
                 print(f"{fg.da_grey}[{fg.cyan}ZStart{fg.da_grey}] {fg.li_grey}Press ESC to prompt ZStart Menu.")
