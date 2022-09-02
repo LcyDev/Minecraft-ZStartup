@@ -25,8 +25,8 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-main.o: main.cpp
-	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
+main.o: main.c
+	$(CC) -c main.c -o main.o $(CFLAGS)
 
 EXEWrapper_private.res: EXEWrapper_private.rc 
 	$(WINDRES) -i EXEWrapper_private.rc --input-format=rc -o EXEWrapper_private.res -O coff 

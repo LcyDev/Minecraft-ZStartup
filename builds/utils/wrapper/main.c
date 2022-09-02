@@ -1,29 +1,29 @@
 #include <windows.h>
-#include <iostream>
-
-using namespace std;
+#include <stdio.h>
 
 void combine(char *destiny, const char *path1, const char *path2) {
+	strcpy(destiny, "\"");
 	if (path1 == NULL || strlen(path1) == 0) {
-		strcpy(destiny, path2);
+		strcat(destiny, path2);
 	}
-    else if (path2 == NULL || strlen(path2) == 0){
-        strcpy(destiny, path1);
+    else if (path2 == NULL || strlen(path2) == 0) {
+        strcat(destiny, path1);
     }
 	else {
-		strcpy(destiny, path1);
+		strcat(destiny, path1);
 		size_t idx = 0, sep = 0;
 		size_t size1 = strlen(path1);
-		while (idx < size1) {
+		while (idx < size1) { // Get last separator
 			idx++;
-			if (destiny[idx] == '/' || destiny[idx] == '\\') {
+			if (destiny[idx] == '\\' || destiny[idx] == '/') {
 				sep = idx;
 			}
 		}
-		// Trim destiny: delete from last sep to end.
+		// Trim destiny to obtain directory.
         destiny[sep+1] = '\0';
         strcat(destiny, path2);
 	}
+	strcat(destiny, "\"");
 }
 
 int main(int argc, char** argv) {
@@ -32,12 +32,6 @@ int main(int argc, char** argv) {
     char lib[MAX_PATH] = "libraries\\ZStart.exe";
 	char exe_path[MAX_PATH];
 	combine(exe_path, path, lib); // Combine paths
-	
-	char file[sizeof(exe_path)]; // Add quotes
-	strcpy(file, "\"");
-	strcat(file, exe_path);
-	strcat(file, "\"");
-	
-	system(file); // Run program
+	system(exe_path);
 	return 0;
 }
