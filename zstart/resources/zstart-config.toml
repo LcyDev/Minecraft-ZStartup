@@ -1,0 +1,46 @@
+config-version = 2
+debug-mode = false
+
+[scripts]
+on-start = "start python ../onServerStart.py"
+on-stop = "stop python ../onServerStop.py"
+on-restart = ""
+
+[settings]
+auto-start = false
+auto-eula = true
+always-restart = false
+
+[settings.after-stop]
+  active = true
+  pause = false
+  timer = 15
+  do_exit = false
+
+[console]
+title = "Minecraft Server Instance"
+background-color = "#0C0C0C"
+text-color = "#F2F2F2"
+
+[server]
+server-path = "./Server"
+jar-path = "./"
+jar-name = "server.jar"
+parameters = "-nogui"
+before-jar = "-Dfile.encoding=UTF-8"
+
+[server.autoflags]
+  eula-skip = false
+  paper-log-level = "INFO"
+
+[java]
+java-binary = "C:/Program Files/Java/bin/java.exe"
+heap-unit = "MB"
+max-memory = 2048
+min-memory = 2048
+memory-percent = 100
+
+[java.flags]
+  defaults = [ "-XX:+DisableExplicitGC" ]
+  modules-path = "./flags"
+  modules = [ "g1gc.yml" ]
