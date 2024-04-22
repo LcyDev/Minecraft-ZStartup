@@ -1,2 +1,0 @@
-py builder.py
-exit
