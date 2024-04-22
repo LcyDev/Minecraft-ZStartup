@@ -1,0 +1,34 @@
+# (https://yaml-multiline.info/) (https://codebeautify.org/yaml-validator)
+
+# GraalVM flags.
+#    GraalVM is a new Java VM from Oracle that can improve the performance of (modded and vanilla) Minecraft.
+#    While client FPS gains are modest, server-side workloads like chunk generation can get a 20%+ boost!
+
+# [!] You must use G1GC with these arguments. GraalVM currently doesn't work with ZGC or Shenandoah.
+
+# Information:
+# ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#graalvm-ee-java-arguments)
+
+flags:
+  - name: GraalVM
+    enabled: false
+    list: >-
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+UnlockDiagnosticVMOptions
+      -XX:+AlwaysActAsServerClassMachine
+      -XX:+AlwaysPreTouch
+      -XX:+DisableExplicitGC
+      -XX:+UseNUMA
+      -XX:AllocatePrefetchStyle=3
+      -XX:NmethodSweepActivity=1
+      -XX:ReservedCodeCacheSize=400M
+      -XX:NonNMethodCodeHeapSize=12M
+      -XX:ProfiledCodeHeapSize=194M
+      -XX:NonProfiledCodeHeapSize=194M
+      -XX:-DontCompileHugeMethods
+      -XX:+PerfDisableSharedMem
+      -XX:+UseFastUnorderedTimeStamps
+      -XX:+UseCriticalJavaThreadPriority
+      -XX:+EagerJVMCI
+      -Dgraal.TuneInlinerExploration=1
+      -Dgraal.CompilerConfiguration=enterprise

@@ -1,0 +1,58 @@
+# (https://yaml-multiline.info/) (https://codebeautify.org/yaml-validator)
+
+# Custom made ZGC flags.
+# ┃   ZGC is a great garbage collector, but this mostly applies for multi-threading applications.
+# ┃   But Minecraft is NOT normally one of those.
+# ┃   [!] Works best with 12GB+ and with multiple cores.
+# ┗━ (https://wiki.openjdk.org/display/zgc)
+
+# Supported java versions:
+# ┗━ (https://wiki.openjdk.org/display/zgc/Main#Main-SupportedPlatforms)
+
+# Information:
+# ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#zgc)
+
+flags:
+  - name: ZGC
+    enabled: false
+    list: >-
+      -XX:+UseG1GC
+      -XX:-UseG1GC
+      -XX:-UseParallelGC
+      -XX:+ParallelRefProcEnabled
+      -XX:+UnlockExperimentalVMOptions
+      -XX:+DisableExplicitGC
+      -XX:+AlwaysPreTouch
+      -XX:InitiatingHeapOccupancyPercent=15
+      -XX:SurvivorRatio=32
+      -XX:+PerfDisableSharedMem
+      -XX:MaxTenuringThreshold=1
+      -XX:+IgnoreUnrecognizedVMOptions
+      -XX:+UseDynamicNumberOfGCThreads
+      -Dusing.aikars.flags=https://mcflags.emc.gs
+      -Daikars.new.flags=true
+    # [!] -XX:-UseParallelOldGC is obsolete since JDK15.
+
+  - name: ZGC-Extras
+    enabled: false
+    list: >-
+      -XX:-OmitStackTraceInFastThrow
+      -XX:+UnlockDiagnosticVMOptions
+      -XX:+ShowCodeDetailsInExceptionMessages
+      -XX:-ZUncommit
+      -XX:ZUncommitDelay=300
+      -XX:ZCollectionInterval=5
+      -XX:ZAllocationSpikeTolerance=2.0
+
+  - name: ZGC-Experimental
+    enabled: false
+    list: >-
+      -XX:+ExitOnOutOfMemoryError
+      -XX:-DontCompileHugeMethods
+      -XX:+TrustFinalNonStaticFields
+      -XX:+UseFastUnorderedTimeStamps
+      -XX:+UseCMoveUnconditionally
+      -XX:+UseNewLongLShift
+      -XX:+UseVectorCmov
+      -XX:+UseXmmI2D
+      -XX:+UseXmmI2F

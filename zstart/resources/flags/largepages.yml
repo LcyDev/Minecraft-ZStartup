@@ -1,0 +1,18 @@
+
+# LargePages need to be supported and enabled by the system
+# ┗━ (https://www.chaoticafractals.com/manual/getting-started/enabling-large-page-support-windows)
+
+# Enabling this on Linux is an advanced level task that can render you system unbootable if not done correctly.
+# You have to edit the Kernel boot parameters in GRUB. There is two ways to do this dynamic allocation and static boot allocation.
+# [!] I didn't see any gains using dynamic so I enabled static allocation on boot. Your mileage may vary.
+
+# Information:
+# ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#large-pages)
+
+flags:
+  - name: LargePages
+    enabled: false
+    list: >-
+      -XX:+UseLargePages
+      -XX:LargePageSizeInBytes=2M
+      -XX:+UseTransparentHugePages
