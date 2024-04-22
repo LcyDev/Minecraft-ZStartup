@@ -1,0 +1,140 @@
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        ZStart Config        ┃
+# ┃     Developed by LcyDev     ┃
+# ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# ┗━ https://github.com/LcyDev/Minecraft-ZStartup
+
+# Do not change this.
+config-version: 2.0
+# For testing purposes
+debug-mode: false
+
+# Side note: if you're still using vanilla, bukkit or spigot
+# If you can, then you should really switch to PaperMC (http://papermc.io)
+# Or one of it's forks, (https://purpurmc.org), (https://ci.pufferfish.host).
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        SCRIPTS SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+scripts:
+  on-start: "start python ../onServerStart.py"
+  on-stop: "stop python ../onServerStop.py"
+  on-restart: ""
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        ZSTART SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+settings:
+  # Start the server along zStart or manually start it.
+  auto-start: false
+  # Automatically create and accept eula.txt.
+  auto-eula: true
+
+  # Loop the server, no matter how the server closes, it will restart.
+  # (Consider configuring spigot.yml's "restart-script" instead)
+  always-restart: false
+
+  # What to do after the server stops.
+  after-stop:
+    active: true
+    # Pause and wait for user confirmation.
+    pause: false
+    # Time in seconds to wait. (0 to disable)
+    timer: 15
+    # After waiting, exit zStart.
+    do_exit: false
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        CONSOLE SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+console:
+  # Sets the console title.
+  title: "Minecraft Server Instance"
+  # The console background color.
+  background-color: "#0C0C0C"
+  # The console text color.
+  text-color: "#F2F2F2"
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        SERVER SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+server:
+  # The location of your server folder.
+  server-path: "./Server"
+  # The location of your server's JAR.
+  # Be aware that the current directory is now "server-path" but if it fails to find it, it will try in ZStart's directory.
+  jar-path: "./"
+  # The name of your server's JAR file.
+  jar-name: "server.jar"
+
+  # This section allows you to toggle useful flags and parameters.
+  autoflags:
+    # Skips the need of eula.txt = true.
+    eula-skip: false
+    # Set paper's log level.
+    paper-log-level: INFO
+
+  # Your server's after -JAR parameters.
+  # In order to see all the parameters, set below --help.
+  # (This won't let the server start, but will show all parameters available)
+  # More info:
+  #   https://minecraft.fandom.com/wiki/Tutorials/Setting_up_a_server
+  #   https://bukkit.gamepedia.com/CraftBukkit_Command_Line_Arguments
+  #   https://www.spigotmc.org/wiki/start-up-parameters
+  parameters: "-nogui"
+
+  # Server's jvm flags.
+  #   https://docs.papermc.io/paper/reference/system-properties
+  before-jar: "-Dfile.encoding=UTF-8"
+
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        JAVA SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+java:
+  # The path of the java binary.
+
+  # You can use this to determine which java you want to use.
+  # Consider using java 11 or latest if possible.
+  # Distributions:
+  # ┣━ https://www.graalvm.org/
+  # ┣━ https://eclipse.dev/openj9/
+  # ┣━ https://adoptium.net/
+  # ┗━ https://aws.amazon.com/corretto/
+  java-binary: "C:/Program Files/Java/bin/java.exe"
+  # ┗━ Example: "C:/Program Files/Java/bin/java.exe"
+
+  # Select the memory unit to be used.
+  heap-unit: MB
+  # ┗━ Values: KB, MB, GB, TB
+
+  # Allocate the server's max and min heap-memory.
+  # Read: https://mcflags.emc.gs
+  max-memory: 2048
+  # [!] DO NOT USE ALL OF YOUR MEMORY.
+  # [!] If you want to allocate more than 4GB you will need Java 64 bits.
+  min-memory: 2048
+  # [!] Due to how garbage collectors work, it's better to allocate minimum matching maximum memory.
+  memory-percent: 100
+
+
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        FLAGS SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+  flags:
+    # Timezone flag: (https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/)
+    # ┗━ Example: -Duser.timezone="America/New_York"
+
+    # Always enabled, independent from other group flags.
+    # [!] This doesn't override other flags.
+    defaults:
+      - -XX:+DisableExplicitGC
+
+    # The path of the flag modules.
+    modules-path: "./flags"
+
+    # Enabled modules for flag groups.
+    # [RECOMMENDED]: Aikar's G1GC flags.
+    # [!] Make sure not to combine incompatible groups.
+    modules:
+      - g1gc.yml
