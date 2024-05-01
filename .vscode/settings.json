@@ -1,0 +1,30 @@
+{
+    "cSpell.ignoreWords": [
+        "fg"
+    ],
+    "cSpell.words": [
+        "Adoptium",
+        "Aikar's",
+        "aikars",
+        "bukkit",
+        "chdir",
+        "Daikars",
+        "Dfile",
+        "Dusing",
+        "funcs",
+        "getch",
+        "hotspot",
+        "isatty",
+        "kbhit",
+        "Millis",
+        "Minecraft",
+        "mojang",
+        "nogui",
+        "Rfile",
+        "tcgetattr",
+        "TCSAFLUSH",
+        "tcsetattr",
+        "Uncommit"
+    ],
+    "discord.enabled": true
+}
