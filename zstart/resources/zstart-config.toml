@@ -27,11 +27,13 @@ server-path = "./Server"
 jar-path = "./"
 jar-name = "server.jar"
 parameters = "-nogui"
-before-jar = "-Dfile.encoding=UTF-8"
+before-jar = ""
 
 [server.autoflags]
   eula-skip = false
-  paper-log-level = "INFO"
+  file-encoding = "UTF-8"
+  paper-log-level = ""
+  paper-skip-properties-comments = false
 
 [java]
 java-binary = "C:/Program Files/Java/bin/java.exe"

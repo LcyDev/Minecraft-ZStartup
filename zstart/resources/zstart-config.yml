@@ -67,13 +67,6 @@ server:
   # The name of your server's JAR file.
   jar-name: "server.jar"
 
-  # This section allows you to toggle useful flags and parameters.
-  autoflags:
-    # Skips the need of eula.txt = true.
-    eula-skip: false
-    # Set paper's log level.
-    paper-log-level: INFO
-
   # Your server's after -JAR parameters.
   # In order to see all the parameters, set below --help.
   # (This won't let the server start, but will show all parameters available)
@@ -85,8 +78,18 @@ server:
 
   # Server's jvm flags.
   #   https://docs.papermc.io/paper/reference/system-properties
-  before-jar: "-Dfile.encoding=UTF-8"
+  before-jar: ""
 
+  # This section allows you to toggle useful flags and parameters.
+  autoflags:
+    # Skips the need of eula.txt = true.
+    eula-skip: false
+    # Sets file encoding
+    file-encoding: "UTF-8"
+    # Set paper's log level.
+    paper-log-level: INFO
+    # Paper skips the comments in the server.properties file.
+    paper-skip-properties-comments: true
 
 # ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
 # ┃        JAVA SECTION        ┃
@@ -109,12 +112,12 @@ java:
   # ┗━ Values: KB, MB, GB, TB
 
   # Allocate the server's max and min heap-memory.
+  # [!] If you want to allocate more than 4GB you will need Java 64 bits.
+  # [!] Due to how garbage collectors work, it's better to allocate minimum matching maximum memory.
+  # [!] DO NOT USE ALL OF YOUR MEMORY.
   # Read: https://mcflags.emc.gs
   max-memory: 2048
-  # [!] DO NOT USE ALL OF YOUR MEMORY.
-  # [!] If you want to allocate more than 4GB you will need Java 64 bits.
   min-memory: 2048
-  # [!] Due to how garbage collectors work, it's better to allocate minimum matching maximum memory.
   memory-percent: 100
 
 
