@@ -1,12 +1,14 @@
 from dataclasses import dataclass, field
 from typing import Dict, List
 
-#import versions
+import versions
+
+from utils import useful
 
 @dataclass
 class ConfigData():
+    config_version: str = versions.CONFIG_FORMAT
     debug_mode: bool = False
-    #config_version: str = versions.CONFIG_FORMAT
 
     class scripts:
         on_start: str = ""
@@ -37,8 +39,13 @@ class ConfigData():
         before_jar: str | list[str] = ""
 
         class auto_flags:
+            file_encoding: str = "UTF-8"
+            log4j2_debug: bool = False
+            log4j2_configFile: str = ""
+
             eula_skip: bool = False
-            paper_log_level: str = "INFO"
+            paper_log_level: str = ""
+            paper_skip_properties_comments: bool = False
 
     class java:
         java_binary: str = "java.exe"
@@ -48,9 +55,6 @@ class ConfigData():
         memory_percent = 100
 
         class flags:
-            defaults: str = ""
+            defaults: str | list[str] = ""
             modules_path: str = "./flags"
-            modules: list[str] = []
-
-
-configData = ConfigData()
+            modules: str | list[str] = ""
