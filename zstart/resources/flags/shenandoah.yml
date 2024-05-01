@@ -13,10 +13,10 @@
 # ┃
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#shenandoahc)
 
-flags:
+groups:
   - name: ShenandoahGC
     enabled: false
-    list: >-
+    flags: >-
       -XX:+UseShenandoahGC
       -XX:-UseG1GC
       -XX:-UseParallelGC

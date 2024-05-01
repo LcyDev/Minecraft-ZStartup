@@ -9,10 +9,10 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#large-pages)
 
-flags:
+groups:
   - name: LargePages
     enabled: false
-    list: >-
+    flags: >-
       -XX:+UseLargePages
       -XX:LargePageSizeInBytes=2M
       -XX:+UseTransparentHugePages

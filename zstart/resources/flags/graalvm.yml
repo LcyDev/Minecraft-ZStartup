@@ -9,10 +9,10 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#graalvm-ee-java-arguments)
 
-flags:
+groups:
   - name: GraalVM
     enabled: false
-    list: >-
+    flags: >-
       -XX:+UnlockExperimentalVMOptions
       -XX:+UnlockDiagnosticVMOptions
       -XX:+AlwaysActAsServerClassMachine

@@ -14,10 +14,10 @@
 # ┣━ (https://www.oracle.com/technical-resources/articles/java/g1gc.html)
 # ┗━ (https://docs.oracle.com/en/java/javase/11/gctuning/)
 
-flags:
+groups:
   - name: G1GC
     enabled: true
-    list: >-
+    flags: >-
       -XX:+UseG1GC
       -XX:+ParallelRefProcEnabled
       -XX:MaxGCPauseMillis=200
@@ -45,7 +45,7 @@ flags:
   - name: G1GC+12
     enabled: false
     overrides: [G1GC]
-    list: >-
+    flags: >-
       -XX:+UseG1GC
       -XX:+ParallelRefProcEnabled
       -XX:MaxGCPauseMillis=200

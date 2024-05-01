@@ -12,10 +12,10 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#zgc)
 
-flags:
+groups:
   - name: ZGC
     enabled: false
-    list: >-
+    flags: >-
       -XX:+UseG1GC
       -XX:-UseG1GC
       -XX:-UseParallelGC
@@ -35,7 +35,7 @@ flags:
 
   - name: ZGC-Extras
     enabled: false
-    list: >-
+    flags: >-
       -XX:-OmitStackTraceInFastThrow
       -XX:+UnlockDiagnosticVMOptions
       -XX:+ShowCodeDetailsInExceptionMessages
@@ -46,7 +46,7 @@ flags:
 
   - name: ZGC-Experimental
     enabled: false
-    list: >-
+    flags: >-
       -XX:+ExitOnOutOfMemoryError
       -XX:-DontCompileHugeMethods
       -XX:+TrustFinalNonStaticFields
