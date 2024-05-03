@@ -13,6 +13,7 @@
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#zgc)
 
 name: "ZGC-Module"
+incompatible: [ "G1GC-Module", "Shen-Module" ]
 
 groups:
   - name: ZGC
