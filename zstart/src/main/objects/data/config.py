@@ -11,20 +11,20 @@ class ConfigData():
     debug_mode: bool = False
 
     class scripts:
+        on_restart: str = ""
         on_start: str = ""
         on_stop: str = ""
-        on_restart: str = ""
 
     class settings:
-        auto_start: bool = False
         auto_eula: bool = True
+        auto_start: bool = False
         always_restart: bool = False
 
         class after_stop:
             active: bool = True
+            do_exit: bool = False
             pause: bool = False
             timer: int = 15
-            do_exit: bool = False
 
     class console:
         title: str = "Minecraft Server Instance"
@@ -53,11 +53,6 @@ class ConfigData():
         max_memory: int = 1024
         min_memory: int = 1024
         memory_percent = 100
-
-        class flags:
-            defaults: str | list[str] = ""
-            modules_path: str = "./flags"
-            modules: str | list[str] = ""
 
     def get_exec_path(self) -> str:
         return self.server.jar_path + self.server.jar_name
@@ -91,7 +86,6 @@ class ConfigData():
             flags.append("-Dlog4j2.debug=TRUE")
         if toggles.log4j2_configFile:
             flags.append(f"-Dlog4j2.configurationFile={toggles.log4j2_configFile}")
-
         if toggles.file_encoding:
             flags.append(f"-Dfile.encoding={toggles.file_encoding}")
 
