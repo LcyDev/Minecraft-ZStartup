@@ -13,6 +13,8 @@
 # ┃
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#shenandoahc)
 
+name: "Shen-Module"
+
 groups:
   - name: ShenandoahGC
     enabled: false

@@ -9,6 +9,8 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#graalvm-ee-java-arguments)
 
+name: "GraalVM-Module"
+
 groups:
   - name: GraalVM
     enabled: false

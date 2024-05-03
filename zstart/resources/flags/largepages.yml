@@ -9,6 +9,8 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#large-pages)
 
+name: "LargePages-Module"
+
 groups:
   - name: LargePages
     enabled: false

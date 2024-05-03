@@ -14,6 +14,8 @@
 # ┣━ (https://www.oracle.com/technical-resources/articles/java/g1gc.html)
 # ┗━ (https://docs.oracle.com/en/java/javase/11/gctuning/)
 
+name: "G1GC-Module"
+
 groups:
   - name: G1GC
     enabled: true

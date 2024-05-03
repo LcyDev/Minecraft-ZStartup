@@ -12,6 +12,8 @@
 # Information:
 # ┗━ (https://github.com/brucethemoose/Minecraft-Performance-Flags-Benchmarks#zgc)
 
+name: "ZGC-Module"
+
 groups:
   - name: ZGC
     enabled: false
