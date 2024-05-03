@@ -86,11 +86,11 @@ def run_server():
 def loadParameters():
     write()
     write(f"{instances.INFO} {fg(216,190,80)}{useful.get_current_time()}")
-    write(f"{fg.da_grey}[{fg.cyan}ZStart{fg.da_grey}] {fg.grey}Loading startup parameters...")
+    write(f"{instances.PREFIX} {fg.grey}Loading startup parameters...")
     write()
 
 def startSRV():
     write()
     write(f"{instances.INFO} {fg(216,190,80)}{useful.get_current_time()}")
-    write(f"{fg.da_grey}[{fg.cyan}ZStart{fg.da_grey}] {fg.grey}Starting Server...")
+    write(f"{instances.PREFIX} {fg.grey}Starting Server...")
     write()
