@@ -104,7 +104,7 @@ java:
   # ┣━ https://eclipse.dev/openj9/
   # ┣━ https://adoptium.net/
   # ┗━ https://aws.amazon.com/corretto/
-  java-binary: "C:/Program Files/Java/bin/java.exe"
+  java-binary: "java.exe"
   # ┗━ Example: "C:/Program Files/Java/bin/java.exe"
 
   # Select the memory unit to be used.
@@ -114,30 +114,8 @@ java:
   # Allocate the server's max and min heap-memory.
   # [!] If you want to allocate more than 4GB you will need Java 64 bits.
   # [!] Due to how garbage collectors work, it's better to allocate minimum matching maximum memory.
-  # [!] DO NOT USE ALL OF YOUR MEMORY.
+  # [!] DO NOT USE ALL OF YOUR SYSTEM MEMORY.
   # Read: https://mcflags.emc.gs
   max-memory: 2048
   min-memory: 2048
   memory-percent: 100
-
-
-# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-# ┃        FLAGS SECTION        ┃
-# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
-  flags:
-    # Timezone flag: (https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/)
-    # ┗━ Example: -Duser.timezone="America/New_York"
-
-    # Always enabled, independent from other group flags.
-    # [!] This doesn't override other flags.
-    defaults:
-      - -XX:+DisableExplicitGC
-
-    # The path of the flag modules.
-    modules-path: "./flags"
-
-    # Enabled modules for flag groups.
-    # [RECOMMENDED]: Aikar's G1GC flags.
-    # [!] Make sure not to combine incompatible groups.
-    modules:
-      - g1gc.yml

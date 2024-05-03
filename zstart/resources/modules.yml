@@ -1,0 +1,39 @@
+# ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+# ┃        FLAGS SECTION        ┃
+# ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+# Timezone flag: (https://garygregory.wordpress.com/2013/06/18/what-are-the-java-timezone-ids/)
+# ┗━ Example: -Duser.timezone="America/New_York"
+
+
+# Always enabled, independent from other group flags.
+# [!] This doesn't override other flags.
+defaults:
+  - "-XX:+DisableExplicitGC"
+
+# The path of the flag modules.
+modules-dir: "./flags/"
+
+
+# Enabled modules for flag groups.
+# [RECOMMENDED]: Aikar's G1GC flags.
+# [!] Make sure not to combine incompatible groups.
+modules:
+  - file: "g1gc.yml"
+    enabled: true
+    priority: 0
+
+  - file: "graalvm.yml"
+    enabled: true
+    priority: 1
+
+  - file: "largepages.yml"
+    enabled: true
+    priority: -1
+
+  - file: "zgc.yml"
+    enabled: false
+    priority: -1
+
+  - file: "shenandoah.yml"
+    enabled: false
+    priority: -1
