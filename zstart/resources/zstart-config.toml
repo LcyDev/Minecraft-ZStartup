@@ -29,8 +29,6 @@ on-restart = ""
 auto-start = false
 # Automatically create and accept eula.txt.
 auto-eula = true
-
-
 # Loop the server, no matter how the server closes, it will restart.
 # (Consider configuring spigot.yml's "restart-script" instead)
 always-restart = false

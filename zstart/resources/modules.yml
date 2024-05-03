@@ -13,7 +13,6 @@ defaults:
 # The path of the flag modules.
 modules-dir: "./flags/"
 
-
 # Enabled modules for flag groups.
 # [RECOMMENDED]: Aikar's G1GC flags.
 # [!] Make sure not to combine incompatible groups.
