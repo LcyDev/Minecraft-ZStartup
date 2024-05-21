@@ -97,7 +97,7 @@ def handle_exception(e: Exception, output: str = "CONSOLE", trace: bool = True):
         write('‾' * 45)
 
     if output in ("FILE", "BOTH"):
-        file_path = unique_handler.UniqueFileManager("logs/crash-reports/", "crash", ".log", max_files=instances.configData.maxFiles["crash"]).obtain_unique_file()
+        file_path = unique_handler.UniqueFileManager("logs/crash-reports/", "crash", ".log", max_files=instances.configData.maxFiles["crash"]).obtain()
         with open(file_path, 'w', encoding="utf-8") as f:
             f.write(ANSI_ESCAPE_ALL.sub('', content))
             f.write(traceback.format_exc())
