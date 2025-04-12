@@ -5,8 +5,10 @@ from pathlib import Path
 
 from common.logger import logger
 
+
 def expandVars(string) -> str:
     return os.path.expandvars(os.path.expanduser(string))
+
 
 def absPath(string) -> str:
     """
@@ -18,6 +20,7 @@ def absPath(string) -> str:
     except OSError as _:
         logger.error(f"Error resolving path: {string}")
 
+
 def mkDirs(path: str) -> None:
     """Creates the directory specified by path, including any necessary parent directories."""
     obj = Path(path)
@@ -27,4 +30,3 @@ def mkDirs(path: str) -> None:
             logger.info(f"Created directory: {path}")
         except OSError as e:
             logger.error(f"Error creating directory: {path}")
-

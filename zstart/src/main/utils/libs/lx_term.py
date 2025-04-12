@@ -5,8 +5,10 @@ if os.name == 'nt':
 else:
     import termios, atexit, select.select as select
 
+
 class lxTERM:
     """Provides cross-platform non-blocking keyboard input functionality."""
+
     _auto_cleanup_ = False
 
     def getch(self) -> str:
@@ -33,7 +35,7 @@ class lxTERM:
                 if self._auto_cleanup_:
                     self._setup_posix_term()
                 dr, _, _ = select([sys.stdin], [], [], 0)
-                return dr != [] # True if input is available
+                return dr != []  # True if input is available
             finally:
                 if self._auto_cleanup_:
                     self._reset_posix_term()
@@ -45,7 +47,9 @@ class lxTERM:
             self.posix_term = termios.tcgetattr(self.fd)
             self.default_term = termios.tcgetattr(self.fd)
             # Modify posix-terminal settings for unbuffered input:
-            self.posix_term[3] &= ~(termios.ICANON | termios.ECHO) # BreakSupport: termios.IGNBRK | termios.BRKINT
+            self.posix_term[3] &= ~(
+                termios.ICANON | termios.ECHO
+            )  # BreakSupport: termios.IGNBRK | termios.BRKINT
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.posix_term)
 
             # Register the cleanup function to reset on exit.

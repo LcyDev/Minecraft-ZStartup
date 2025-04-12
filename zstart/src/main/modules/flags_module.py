@@ -5,8 +5,8 @@ class FlagsGroup:
     incompatible: list[str]
     flags: list[str]
 
-    def __init__(  ):
-        ...
+    def __init__(): ...
+
 
 class FlagsModule:
     name: str
@@ -14,8 +14,8 @@ class FlagsModule:
     incompatible: list[str]
     groups: list[FlagsGroup]
 
-    def __init__( modulePath: str ):
-        ...
+    def __init__(modulePath: str): ...
+
 
 class moduleConfig:
     defaults: str | list[str] = ""

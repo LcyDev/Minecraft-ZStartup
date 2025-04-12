@@ -7,6 +7,7 @@ from datetime import date
 from . import paths
 from common.logger import logger
 
+
 def free_latest_file(dir_path: str, base_name: str, extension: str, max_files: int = 0) -> Path:
     """Manages a "latest" file, ensuring it's always updated with new content while preserving previous versions."""
     lastest_file = Path(dir_path, "latest" + extension)
@@ -20,9 +21,19 @@ def free_latest_file(dir_path: str, base_name: str, extension: str, max_files: i
         lastest_file.rename(new_file)
     return lastest_file
 
+
 class UniqueFileManager:
     """Manages file creation, naming, and cleanup within a specified directory."""
-    def __init__(self, dir_path: str, base_name: str, extension: str, max_files: Optional[int] = None, appendDate: bool = True, set_date: Optional[date] = None):
+
+    def __init__(
+        self,
+        dir_path: str,
+        base_name: str,
+        extension: str,
+        max_files: Optional[int] = None,
+        appendDate: bool = True,
+        set_date: Optional[date] = None,
+    ):
         """Initializes the UniqueFileManager instance"""
 
         self.dir_path = Path(dir_path)
@@ -45,23 +56,21 @@ class UniqueFileManager:
 
     def get_matching(self) -> List[Path]:
         """Returns a list of existing files matching a pattern based on the base name and extension."""
-        pattern = re.compile(rf"^({re.escape(self.base_name)})\d*{re.escape(self.ext)}$") # ([0-9_\-]*)
+        pattern = re.compile(rf"^({re.escape(self.base_name)})\d*{re.escape(self.ext)}$")  # ([0-9_\-]*)
 
         return sorted(
-            [file_path
-            for file_path in self.dir_path.iterdir()
-            if file_path.is_file() and pattern.match(file_path.name)],
-            key=lambda i: i.stem
+            [
+                file_path
+                for file_path in self.dir_path.iterdir()
+                if file_path.is_file() and pattern.match(file_path.name)
+            ],
+            key=lambda i: i.stem,
         )
 
     def _get_indexes(self, files: List[Path]) -> Set[int]:
         """Extracts indexes from filenames matching a pattern."""
         pattern = re.compile(r"_(\d+)$")
-        indexes = {
-            int(match[0])
-            for file_path in files
-            if (match := pattern.findall(file_path.name))
-        }
+        indexes = {int(match[0]) for file_path in files if (match := pattern.findall(file_path.name))}
         return indexes
 
     def _remove_older(self, files: List[Path]) -> List[Path]:

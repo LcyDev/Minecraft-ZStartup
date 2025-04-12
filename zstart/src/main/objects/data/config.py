@@ -5,8 +5,9 @@ import versions
 
 from utils import useful
 
+
 @dataclass
-class ConfigData():
+class ConfigData:
     config_version: str = versions.CONFIG_FORMAT
     debug_mode: bool = False
 

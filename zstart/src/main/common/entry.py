@@ -6,6 +6,7 @@ from common.colors import wc, fg, bg, ef, rs
 # 7-bit C1 ANSI sequences
 ANSI_ESCAPE_ALL = re.compile(r'\x1B (?:[@-Z\\-_] | \[ [0-?]* [-/]* [@-~])', re.VERBOSE)
 
+
 def clear(new_line=True):
     if sys.stdin and sys.stdin.isatty():
         if os.name == 'nt':
@@ -15,14 +16,17 @@ def clear(new_line=True):
     if new_line:
         write()
 
+
 def write(*values: object, reset: bool = True, sep: str = " ", end: str = "\n"):
     print(*values, sep=sep, end=end)
     if reset:
         print(rs.all, end='')
 
+
 def set_title(text: str = ""):
     if os.name == 'nt':
         import ctypes
+
         try:
             k32 = ctypes.WinDLL('kernel32', use_last_error=True)
             k32.SetConsoleTitleW(text)
@@ -36,10 +40,12 @@ def set_title(text: str = ""):
         sys.stdout.flush()
         os.system('')
 
+
 def load_icon(ICON_PATH):
     """Loads an icon from a file and sets it for the console window."""
     if os.name == 'nt':
         from ctypes import windll, create_unicode_buffer
+
         kernel32, user32 = windll.kernel32, windll.user32
 
         image_path = Path(ICON_PATH).absolute()
@@ -57,18 +63,20 @@ def load_icon(ICON_PATH):
 
             # Attempt to load the icon
             hIcon = user32.LoadImageW(None, str(image_path), 1, 0, 0, icon_flags)
-            user32.SendMessageA(apphWnd, user32.WM_SETICON, 0, hIcon) # Small icon
-            user32.SendMessageA(apphWnd, user32.WM_SETICON, 1, hIcon) # Large icon
+            user32.SendMessageA(apphWnd, user32.WM_SETICON, 0, hIcon)  # Small icon
+            user32.SendMessageA(apphWnd, user32.WM_SETICON, 1, hIcon)  # Large icon
         except (WindowsError, IOError, RuntimeError, FileNotFoundError) as e:
             write(f"Error setting console icon: {e}")
             write(f"Path: {ICON_PATH}")
 
+
 def error_message(message: str):
     write(
-    """
+        """
     [WARN] {msg}
     """
     )
+
 
 def get_exceptionDesc(e: Exception):
     msg = f"{e.__class__.__name__} from <'{e.__class__.__module__}'>"
@@ -80,7 +88,8 @@ def handle_exception(e: Exception, output: str = "CONSOLE", trace: bool = True):
     import traceback, instances
     from utils.libs import unique_handler
 
-    if not isinstance(e, Exception): return
+    if not isinstance(e, Exception):
+        return
 
     content = f"""{'‾' * 45}
     [WARNING] Something awful happened!
@@ -97,7 +106,9 @@ def handle_exception(e: Exception, output: str = "CONSOLE", trace: bool = True):
         write('‾' * 45)
 
     if output in ("FILE", "BOTH"):
-        file_path = unique_handler.UniqueFileManager("logs/crash-reports/", "crash", ".log", max_files=instances.configData.maxFiles["crash"]).obtain()
+        file_path = unique_handler.UniqueFileManager(
+            "logs/crash-reports/", "crash", ".log", max_files=instances.configData.maxFiles["crash"]
+        ).obtain()
         with open(file_path, 'w', encoding="utf-8") as f:
             f.write(ANSI_ESCAPE_ALL.sub('', content))
             f.write(traceback.format_exc())

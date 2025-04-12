@@ -19,20 +19,24 @@ from common.colors import wc, fg, HexFg
 
 from utils.libs import lx_term
 
+
 def setup():
     if IS_COMPILED:
         entry.load_icon(ICON_PATH)
     entry.set_title(f"ZStart - {versions.SOFTWARE_VERSION}")
 
-def start():
-    ...
+
+def start(): ...
+
 
 def main():
     setup()
     lxTerm = lx_term.lxTERM()
     try:
         entry.clear()
-        write(f"{instances.PREFIX} {HexFg("#e9326a")}Loading ZStart version {versions.SOFTWARE_VERSION} ...\n")
+        write(
+            f"{instances.PREFIX} {HexFg("#e9326a")}Loading ZStart version {versions.SOFTWARE_VERSION} ...\n"
+        )
         start()
         if instances.localData.restart:
             write(f"{wc.warn}Press any key to restart the program.")
@@ -44,6 +48,7 @@ def main():
     finally:
         write(f"{wc.warn}Press any key to exit the program.")
         lxTerm.getch()
+
 
 if __name__ == "__main__":
     main()
