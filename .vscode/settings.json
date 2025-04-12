@@ -1,8 +1,11 @@
 {
+    "debug.terminal.clearBeforeReusing": true,
     "files.exclude": {
         "**/__pycache__": true,
-        "**/.mypy_cache": true
+        "**/.mypy_cache": true,
+        "**/__init__.py": true
     },
-    "discord.enabled": true,
-    "deepscan.enable": true
+    "deepscan.enable": true,
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "ruff.configuration": "ruff.toml",
 }
