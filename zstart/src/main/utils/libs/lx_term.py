@@ -3,7 +3,10 @@ import os
 if os.name == 'nt':
     import msvcrt
 else:
-    import termios, atexit, select.select as select
+    import atexit
+    import select.select as select
+    import sys
+    import termios
 
 
 class lxTERM:
@@ -47,9 +50,7 @@ class lxTERM:
             self.posix_term = termios.tcgetattr(self.fd)
             self.default_term = termios.tcgetattr(self.fd)
             # Modify posix-terminal settings for unbuffered input:
-            self.posix_term[3] &= ~(
-                termios.ICANON | termios.ECHO
-            )  # BreakSupport: termios.IGNBRK | termios.BRKINT
+            self.posix_term[3] &= ~(termios.ICANON | termios.ECHO)  # BreakSupport: termios.IGNBRK | termios.BRKINT
             termios.tcsetattr(self.fd, termios.TCSAFLUSH, self.posix_term)
 
             # Register the cleanup function to reset on exit.
