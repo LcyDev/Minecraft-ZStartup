@@ -1,8 +1,9 @@
-import sys, time
+import sys
+import time
 
-from utils.libs import lx_term
-from common.entry import write
 from common.colors import HexFg
+from common.entry import write
+from utils.libs import lx_term
 
 import instances
 
