@@ -1,0 +1,6 @@
+init-settings: false # --initSettings
+properties: "settings/server.properties" # --config
+commands-settings: "settings/commands.yml" # --commands-settings
+bukkit-settings: "settings/bukkit.yml" # --bukkit-settings
+spigot-settings: "settings/spigot.yml" # --spigot-settings
+paper-settings: "settings/paper.yml" # --paper-settings
